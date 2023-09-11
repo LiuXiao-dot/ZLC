@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <Deterministic>true</Deterministic>
+        <LangVersion>latest</LangVersion>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <AssemblyOriginatorKeyFile>..\LiuXiao.snk</AssemblyOriginatorKeyFile>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <AssemblyName>ZLCEditor.UGUIExtension</AssemblyName>
+        <RootNamespace>ZLCEditor.UGUIExtension</RootNamespace>
+        <Configuration>Integrated</Configuration>
+        <SignAssembly>true</SignAssembly>
+        <PublicSign>true</PublicSign>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DefineConstants>TRACE;ZLC_DEBUG;ZLC_CORE;UNITY_EDITOR;</DefineConstants>
+        <Optimize>true</Optimize>
+        <DocumentationFile>bin\Debug\ZLCEditor.UGUIExtension.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DefineConstants>TRACE;ZLC_CORE;</DefineConstants>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>pdbonly</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DefineConstants>TRACE;ZLC_CORE;</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Core\Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Sirenix.OdinInspector.Attributes">
+            <HintPath>..\DEPENDENCY\Sirenix\Sirenix.OdinInspector.Attributes.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+            <HintPath>..\DEPENDENCY\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\DEPENDENCY\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>..\DEPENDENCY\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\DEPENDENCY\UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>..\DEPENDENCY\UnityEngine.UIModule.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="if exist &quot;$(TargetDir)$(TargetFileName)&quot; (&#xA;   copy $(TargetDir)$(TargetFileName) D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)&#xA;if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;copy $(TargetDir)$(TargetName).pdb D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)&#xA;if exist &quot;$(TargetDir)$(TargetName).xml&quot; (&#xA;copy $(TargetDir)$(TargetName).xml D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)" />
+    </Target>
+</Project>

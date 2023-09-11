@@ -1,0 +1,5 @@
+# 使用方式
+1.创建一个NodeFactory,可以使用using语句块，可以自动释放相关工厂与节点
+2.再调用NodeFactory.CreateNamespace创建NamespaceNode作为根节点
+3.使用NodeHelper向NamespaceNode节点中添加子节点
+4.使用Node_String_Converter将节点数据转换成字符串代码

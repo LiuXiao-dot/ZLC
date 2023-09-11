@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/AudioSystem/AudioConfigApplier.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AudioSystem/AudioConstant.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AudioSystem/AudioManager.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/AudioSystem/AudioNoise.cs" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/AudioSystem/AudioUtils.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Core/AudioSystem/AudioConfigurationSO.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Core/AudioSystem/AudioConfigurationSO.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Core/AudioSystem/AudioCueSO.cs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/Core/AudioSystem/AudioCueSO.cs" charset="UTF-8" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

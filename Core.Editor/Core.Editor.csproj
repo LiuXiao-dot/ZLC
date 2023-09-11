@@ -1,0 +1,96 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>disable</Nullable>
+        <Deterministic>true</Deterministic>
+        <LangVersion>latest</LangVersion>
+        <AssemblyVersion>1.0.0</AssemblyVersion>
+        <FileVersion>1.0.0</FileVersion>
+        <AssemblyOriginatorKeyFile>..\LiuXiao.snk</AssemblyOriginatorKeyFile>
+        <AssemblyName>ZLCEditor</AssemblyName>
+        <RootNamespace>ZLCEditor</RootNamespace>
+        <Configuration>AssemblyConfiguration.Integrated</Configuration>
+        <SignAssembly>true</SignAssembly>
+        <PublicSign>true</PublicSign>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+        <DefineConstants>TRACE;UNITY_EDITOR;ZLC_CORE_EDITOR;</DefineConstants>
+        <Optimize>true</Optimize>
+        <DocumentationFile>bin\Debug\ZLCEditor.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DefineConstants>TRACE;ZLC_CORE;</DefineConstants>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>pdbonly</DebugType>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+        <DefineConstants>TRACE;UNITY_EDITOR;ZLC_CORE_EDITOR;</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <None Include="..\LiuXiao.snk">
+            <Link>LiuXiao.snk</Link>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Sirenix.OdinInspector.Attributes">
+            <HintPath>..\..\ZLCEngine\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.OdinInspector.Editor">
+            <HintPath>..\..\ZLCEngine\Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Editor.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.Serialization">
+            <HintPath>..\..\ZLCEngine\Assets\Plugins\Sirenix\Assemblies\NoEditor\Sirenix.Serialization.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.Serialization.Config">
+            <HintPath>..\..\ZLCEngine\Assets\Plugins\Sirenix\Assemblies\Sirenix.Serialization.Config.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.Utilities">
+            <HintPath>..\..\ZLCEngine\Assets\Plugins\Sirenix\Assemblies\NoEditor\Sirenix.Utilities.dll</HintPath>
+        </Reference>
+        <Reference Include="Sirenix.Utilities.Editor">
+            <HintPath>..\..\ZLCEngine\Assets\Plugins\Sirenix\Assemblies\Sirenix.Utilities.Editor.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEditor">
+            <HintPath>..\DEPENDENCY\UnityEditor.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEditor.CoreModule">
+            <HintPath>..\DEPENDENCY\UnityEditor.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEditor.QuickSearchModule">
+            <HintPath>..\DEPENDENCY\UnityEditor.QuickSearchModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEditor.UI">
+            <HintPath>..\DEPENDENCY\UnityEditor.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>..\DEPENDENCY\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+          <HintPath>..\DEPENDENCY\UnityEngine.AudioModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\DEPENDENCY\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>..\DEPENDENCY\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\DEPENDENCY\UnityEngine.UI.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Core\Core.csproj" />
+    </ItemGroup>
+    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+        <Exec Command="if exist &quot;$(TargetDir)$(TargetFileName)&quot; (&#xA;   copy $(TargetDir)$(TargetFileName) D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)&#xA;if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;copy $(TargetDir)$(TargetName).pdb D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)&#xA;if exist &quot;$(TargetDir)$(TargetName).xml&quot; (&#xA;copy $(TargetDir)$(TargetName).xml D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)" />
+    </Target>
+
+</Project>

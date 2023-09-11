@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<doc>
+  <members>
+    <assembly>
+      <name>UnityEngine.UIWidgetsModule</name>
+    </assembly>
+    <member name="A:UnityEngine.UIWidgetsModule">
+      <summary>
+        <para>The UIWidgets module implements the internal support for the official UIWidgets package in Unity.</para>
+      </summary>
+    </member>
+  </members>
+</doc>
