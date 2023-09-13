@@ -5,11 +5,14 @@ using ZLC.Application;
 using ZLC.Common;
 using ZLC.ConfigSystem;
 using ZLC.EventSystem;
+using ZLC.IOCSystem;
 using ZLC.ResSystem;
 using ZLC.SceneSystem;
 namespace ZLC.AudioSystem;
 
 /// <inheritdoc cref="ZLC.AudioSystem.IAudioManager" />
+[Component(AppConstant.APP_LAUNCHER_MANAGER)]
+[Component(AppConstant.APP_LAUNCHER_PRELOADERS)]
 public class AudioManager : IAudioManager, ILoader, ISubscriber<SceneMessage>
 {
     private Transform _root;

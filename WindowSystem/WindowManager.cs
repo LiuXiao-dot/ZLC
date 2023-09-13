@@ -5,6 +5,7 @@ using ZLC.Application;
 using ZLC.Common;
 using ZLC.ConfigSystem;
 using ZLC.EventSystem;
+using ZLC.IOCSystem;
 using ZLC.ResSystem;
 using ZLC.SceneSystem;
 using ZLC.UISystem;
@@ -14,7 +15,9 @@ namespace ZLC.WindowSystem
     /// <summary>
     /// 窗口管理器
     /// </summary>
-    public class WindowManager : IWindowManager, IManager, ILoader, ISubscriber<SceneMessage>
+    [Component(AppConstant.APP_LAUNCHER_PRELOADERS)]
+    [Component(AppConstant.APP_LAUNCHER_MANAGER)]
+    public class WindowManager : IWindowManager, ISubscriber<SceneMessage>
     {
         private RectTransform _root;
         private RectTransform[] _layerRoots;

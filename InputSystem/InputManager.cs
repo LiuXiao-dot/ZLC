@@ -2,13 +2,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using ZLC.Application;
 using ZLC.Common;
+using ZLC.IOCSystem;
 using ZLC.ResSystem;
 namespace ZLC.InputSystem;
 
 /// <summary>
 /// 输入管理器
 /// </summary>
-public class InputManager : IManager
+[Component(AppConstant.APP_LAUNCHER_MANAGER)]
+public class InputManager : IInputManager
 {
     /// <summary>
     /// 输入行为资产

@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 using UnityEngine.SceneManagement;
+using ZLC.Application;
 using ZLC.Common;
+using ZLC.IOCSystem;
 using ZLC.ResSystem;
 using ZLC.SceneSystem;
 using Debug = UnityEngine.Debug;
@@ -13,6 +15,7 @@ namespace ZLC.ResourceSystem
     /// <summary>
     /// 基于Addressables的资源管理器
     /// </summary>
+    [Component(AppConstant.APP_LAUNCHER_MANAGER)]
     public class ResManager : IResLoader
     {
         /// <summary>

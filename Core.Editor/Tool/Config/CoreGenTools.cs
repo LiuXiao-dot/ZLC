@@ -18,7 +18,7 @@ namespace ZLCEditor.Tool.Config
         private void Generate()
         {
             var soTypes = new List<Type>(10);
-            ToolHelper.GetAllChildType(soTypes,ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal,typeof(SOSingleton<>));
+            EditorHelper.GetAllChildType(soTypes,EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal,typeof(SOSingleton<>));
             foreach (Type temp in soTypes) {
                 SOSingletonEditor.Check(temp);
             }

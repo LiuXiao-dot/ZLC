@@ -30,7 +30,7 @@ namespace ZLCEditor.Tool
         /// <summary>
         /// 展示工具菜单
         /// </summary>
-        [MenuItem("Tools/XW工具")]
+        [MenuItem("Tools/XW菜单")]
         private static void ExcuteToolMenu()
         {
             var window = EditorWindow.GetWindow<ToolMenu>();

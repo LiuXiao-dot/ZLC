@@ -26,7 +26,7 @@ namespace ZLCEditor.Converter
         {
             if (_instances != null) return;
             _types = new List<Type>();
-            ToolHelper.GetAllChildType<IILData>(_types, ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal);
+            EditorHelper.GetAllChildType<IILData>(_types, EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal);
             _instances = new List<object>(_types.Count);
             _buttons = new List<TempButton>();
             // 添加各个类到子树中，

@@ -89,6 +89,10 @@
     <ItemGroup>
         <ProjectReference Include="..\Core\Core.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application" />
+    </ItemGroup>
     <Target Name="PostBuild" AfterTargets="PostBuildEvent">
         <Exec Command="if exist &quot;$(TargetDir)$(TargetFileName)&quot; (&#xA;   copy $(TargetDir)$(TargetFileName) D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)&#xA;if exist &quot;$(TargetDir)$(TargetName).pdb&quot; (&#xA;copy $(TargetDir)$(TargetName).pdb D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)&#xA;if exist &quot;$(TargetDir)$(TargetName).xml&quot; (&#xA;copy $(TargetDir)$(TargetName).xml D:\UnitySelf\ZLCEngine\Assets\Plugins\ZLCEngine\Assemblies&#xA;)" />
     </Target>

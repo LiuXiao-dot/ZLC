@@ -19,4 +19,13 @@ public sealed class AppConstant
             return basePath;
         }
     }
+
+    /// <summary>
+    /// 添加管理器的key(IOC使用)
+    /// </summary>
+    public const string APP_LAUNCHER_MANAGER = "APP_LAUNCHER_MANAGER";
+    /// <summary>
+    /// 添加预加载器(IOC使用)
+    /// </summary>
+    public const string APP_LAUNCHER_PRELOADERS = "APP_LAUNCHER_PRELOADERS";
 }

@@ -70,7 +70,7 @@ namespace ZLCEditor.WindowSystem
             };
             // 查找所有ShortKey标记的类
             var temp = new List<Type>();
-            ToolHelper.GetAllMarkedType<ShortKeyAttribute>(temp,ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal);
+            EditorHelper.GetAllMarkedType<ShortKeyAttribute>(temp,EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal);
             foreach (var type in temp) {
                 var attr = type.GetCustomAttribute<ShortKeyAttribute>();
                 var shortkey = attr.key;

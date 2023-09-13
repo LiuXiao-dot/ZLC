@@ -20,7 +20,7 @@ public class FilePathAttribute : Attribute
     /// <summary>
     /// 框架内置编辑器路径
     /// </summary>
-    internal const string IN_XWEDITORPATH = "Assets/Plugins/ZLCEngine/EditorsConfigs";
+    internal const string IN_XWEDITORPATH = "Assets/Plugins/ZLCEngine/EditorConfigs";
     /// <summary>
     /// 路径类型
     /// </summary>

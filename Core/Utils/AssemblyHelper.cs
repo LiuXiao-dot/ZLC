@@ -1,4 +1,5 @@
 using System.Reflection;
+using ZLC.Extensions;
 namespace ZLC.Utils
 {
     /// <summary>
@@ -80,7 +81,7 @@ namespace ZLC.Utils
             var types = assembly.GetTypes();
             foreach (var type in types) {
                 if (type.IsAbstract || type.IsInterface) continue;
-                if (type.GetCustomAttribute(attributeType, inherit) == null) continue;
+                if (type.GetCustomAttributes(attributeType, inherit).IsEmptyOrNull()) continue;
                 temp.Add(type);
             }
         }

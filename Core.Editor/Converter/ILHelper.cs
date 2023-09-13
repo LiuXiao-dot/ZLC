@@ -8,6 +8,9 @@ namespace ZLCEditor.Converter
     {
         private static ILFactory _instance;
 
+        /// <summary>
+        /// 转换帮助器单例
+        /// </summary>
         public static ILFactory Instance
         {
             get {

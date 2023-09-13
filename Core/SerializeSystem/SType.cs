@@ -1,29 +1,31 @@
-using System.Reflection;
 namespace ZLC.SerializeSystem;
 
 /// <summary>
 /// 可序列化的Type,编辑器中展示为Type和所有继承自Type的类
 /// </summary>
 [Serializable]
-public class SType
+public class SType : IEquatable<SType>
 {
-    /// <summary>
-    /// 同一个type对应同一个SerializableType
-    /// </summary>
-    private static Dictionary<Type, SType> pools = new Dictionary<Type, SType>();
-
     /// <summary>
     /// 类型的完整名称
     /// </summary>
     public string fullName;
 
     /// <summary>
+    /// 无参构造
+    /// </summary>
+    public SType()
+    {
+        fullName = "";
+    }
+    
+    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="type">实际类型</param>
     public SType(Type type)
     {
-        fullName = type.Assembly.FullName;
+        fullName = type.FullName;
     }
 
     /// <summary>
@@ -33,11 +35,7 @@ public class SType
     /// <returns></returns>
     public static implicit operator SType(Type type)
     {
-        if (!pools.ContainsKey(type))
-        {
-            pools.Add(type,new SType(type));
-        }
-        return pools[type];
+        return new SType(type);
     }
 
     /// <summary>
@@ -48,5 +46,23 @@ public class SType
     public static implicit operator Type(SType type)
     {
         return Type.GetType(type.fullName);;
+    }
+
+    public bool Equals(SType other)
+    {
+        if (ReferenceEquals(null, other)) return false;
+        if (ReferenceEquals(this, other)) return true;
+        return fullName == other.fullName;
+    }
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != this.GetType()) return false;
+        return Equals((SType)obj);
+    }
+    public override int GetHashCode()
+    {
+        return (fullName != null ? fullName.GetHashCode() : 0);
     }
 }

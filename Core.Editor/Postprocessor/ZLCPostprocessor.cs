@@ -1,5 +1,5 @@
 using UnityEditor;
-namespace ZLCEditor.AudioSystem;
+namespace ZLCEditor.Postprocessor;
 
 /// <summary>
 /// ZLC项目中的资源导入后处理

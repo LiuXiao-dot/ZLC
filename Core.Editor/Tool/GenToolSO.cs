@@ -27,7 +27,7 @@ namespace ZLCEditor.Tool
         public void InitTool(OdinMenuTree tree)
         {
             _types = new List<Type>();
-            ToolHelper.GetAllMarkedType<GeneratorAttribute>(_types, ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal);
+            EditorHelper.GetAllMarkedType<GeneratorAttribute>(_types, EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal);
             _instances = new List<Object>(_types.Count);
             // 添加各个类到子树中，
             foreach (var temp0 in _types) {

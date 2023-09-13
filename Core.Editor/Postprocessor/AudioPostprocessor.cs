@@ -2,7 +2,7 @@ using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
 using ZLC.AudioSystem;
-namespace ZLCEditor.AudioSystem;
+namespace ZLCEditor.Postprocessor;
 
 /// <summary>
 /// 音频相关后处理

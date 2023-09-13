@@ -6,7 +6,7 @@ using ZLC.ConfigSystem;
 using ZLC.EditorSystem;
 using ZLC.EventSystem.MessageQueue;
 using FilePathAttribute = ZLC.FileSystem.FilePathAttribute;
-namespace ZLCEditor.Tool.MessageQueue
+namespace ZLCEditor.Tool
 {
     /// <summary>
     /// 消息队列代码生成
@@ -21,7 +21,7 @@ namespace ZLCEditor.Tool.MessageQueue
         public void GenerateAll()
         {
             var temp = new List<Type>();
-            ToolHelper.GetAllMarkedType<MessageQueueAttribute>(temp,ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal);
+            EditorHelper.GetAllMarkedType<MessageQueueAttribute>(temp,EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal);
             messages = temp.ToArray();
             EditorUtility.SetDirty(this);
             if (messages == null) return;
@@ -94,7 +94,7 @@ namespace {namespaceText}{{
         public IEnumerable<Type> CheckType()
         {
             var temp = new List<Type>();
-            ToolHelper.GetAllMarkedType<MessageQueueAttribute>(temp,ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal);
+            EditorHelper.GetAllMarkedType<MessageQueueAttribute>(temp,EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal);
             if (messages != null)
             {
                 var old = messages.ToList();

@@ -26,7 +26,7 @@ namespace ZLCEditor.Tool.Config
         public ScriptableObjectCreateTool()
         {
             types = new List<Type>();
-            ToolHelper.GetAllChildType<ScriptableObject>(types,ToolHelper.AssemblyFilterType.Custom | ToolHelper.AssemblyFilterType.Internal);
+            EditorHelper.GetAllChildType<ScriptableObject>(types,EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal);
             var length = types.Count;
             for (int i = 0; i < length; i++)
             {

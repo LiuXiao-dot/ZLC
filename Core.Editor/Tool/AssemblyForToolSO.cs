@@ -4,6 +4,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using ZLC.ConfigSystem;
 using ZLC.EditorSystem;
+using ZLC.Extensions;
 using ZLC.Utils;
 using FilePathAttribute = ZLC.FileSystem.FilePathAttribute;
 namespace ZLCEditor.Tool
@@ -67,11 +68,11 @@ namespace ZLCEditor.Tool
             // 刷新ZLC提供的程序集
             var zlcAssembliesPromot = "ZLC*.asmdef"; 
             var zlcDllsPromot = "ZLC*.dll"; 
-            EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(zlcAssembliesPromot, temp =>
+            ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(zlcAssembliesPromot, temp =>
             {
                 defaultAssemblies = temp.ToArray();
             });
-            EditorHelper.SearchPackagesAssets<DefaultAsset>(zlcDllsPromot, temp =>
+            ZLCEditor.EditorHelper.SearchPackagesAssets<DefaultAsset>(zlcDllsPromot, temp =>
             {
                 defaultDlls = temp.ToArray();
             });
@@ -84,26 +85,37 @@ namespace ZLCEditor.Tool
             // Core,UnityEditor.UI,UnityEngine.UI
             var tempAssembliesPromot = "UnityEngine*.asmdef or Unity*.asmdef or UnityEditor*.asmdef";
             var tempDllsPromot = "Unity*.dll or UnityEngine*.dll or UnityEditor*.dll";
-            EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(tempAssembliesPromot, temp =>
+            ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(tempAssembliesPromot, temp =>
             {
                 unityAssemblies = temp.ToArray();
             });
-            EditorHelper.SearchPackagesAssets<DefaultAsset>(tempDllsPromot, temp =>
+            ZLCEditor.EditorHelper.SearchPackagesAssets<DefaultAsset>(tempDllsPromot, temp =>
             {
                 unityDlls = temp.ToArray();
             });
+            // 不处理自定义程序集，如果有空值则移除
+            IListHelper.RemoveNulls(unityAssemblies);
+            IListHelper.RemoveNulls(unityDlls);
             
             // 刷新第三方程序集
             var pluginAssembliesPromot = "dir=Plugins ext:asmdef";
             var pluginDllsPromot = "dir=Plugins ext:dll";
-            EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(pluginAssembliesPromot, temp =>
+            ZLCEditor.EditorHelper.SearchPackagesAssets<AssemblyDefinitionAsset>(pluginAssembliesPromot, temp =>
             {
+                foreach (var defaultAssembly in defaultAssemblies) {
+                    temp.Remove(defaultAssembly);
+                }
                 otherAssemblies = temp.ToArray();
             });
-            EditorHelper.SearchPackagesAssets<DefaultAsset>(pluginDllsPromot, temp =>
+            ZLCEditor.EditorHelper.SearchPackagesAssets<DefaultAsset>(pluginDllsPromot, temp =>
             {
+                foreach (var defaultDll in defaultDlls) {
+                    temp.Remove(defaultDll);
+                }
                 otherDlls = temp.ToArray();
             });
+            IListHelper.RemoveNulls(otherAssemblies);
+            IListHelper.RemoveNulls(otherDlls);
         }
     }
 }

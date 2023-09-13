@@ -1,11 +1,14 @@
 using UnityEngine;
+using ZLC.Application;
 using ZLC.Common;
 using ZLC.ConfigSystem;
+using ZLC.IOCSystem;
 namespace ZLC.PofileSystem;
 
 /// <summary>
 /// 调试管理器
 /// </summary>
+[Component(AppConstant.APP_LAUNCHER_MANAGER)]
 public class ProfileManager : IManager
 {
     /// <summary>

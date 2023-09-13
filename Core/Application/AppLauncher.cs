@@ -1,9 +1,12 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ZLC.CacheSystem;
 using ZLC.Common;
 using ZLC.ConfigSystem;
+using ZLC.IOCSystem;
 using ZLC.ResSystem;
+using ZLC.SerializeSystem;
 using ZLC.UISystem;
 namespace ZLC.Application;
 
@@ -11,7 +14,7 @@ namespace ZLC.Application;
 /// 程序启动器抽象类
 /// <remarks>由于各个管理器都是继承自接口，为了不使用反射就将管理器注册到AppLauncher中，需要生成继承自AAppLauncher的类，并生成注册的代码</remarks>
 /// </summary>
-public abstract class AAppLauncher : MonoBehaviour, IAppLauncher
+public class AppLauncher : MonoBehaviour, IAppLauncher
 {
     /// <summary>
     /// 游戏配置
@@ -21,6 +24,8 @@ public abstract class AAppLauncher : MonoBehaviour, IAppLauncher
     /// <summary>
     /// 包含所有启动时注册的管理器，可以通过该游戏启动器获取管理器，也可以自行为管理器设置单例模式
     /// </summary>
+    [Container(AppConstant.APP_LAUNCHER_MANAGER), SerializeField]
+    private SDictionary<SType, SType> _componentTypes;
     private Dictionary<Type, IManager> _components;
 
     private void Awake()
@@ -58,26 +63,39 @@ public abstract class AAppLauncher : MonoBehaviour, IAppLauncher
     /// 使用IOC,通过IOCAttribtue下的几个Attribtue进行标记
     /// key值为：APP_LAUNCHER_MANAGER
     /// </summary>
-    protected abstract void RegisterManagers();
-
+    protected void RegisterManagers()
+    {
+        if(_componentTypes == null) return;
+        foreach (var componentType in _componentTypes) {
+            if (((Type)componentType.Value).GetConstructor(Type.EmptyTypes) != null) 
+                _components.Add(componentType.Key,(IManager)Activator.CreateInstance(componentType.Value));
+        }
+    }
+    
     /// <summary>
     /// 初始化所有管理器
     /// 此时已经加载完了GameConfigSO
     /// </summary>
     private void InitManagers()
     {
+        if(_components == null) return;
         foreach (var component in _components) {
             component.Value.Init();
         }
     }
-    
+
     /// <summary>
     /// 初始化预加载器
     /// 使用IOC,通过IOCAttribtue下的几个Attribtue进行标记
     /// key值为：APP_LAUNCHER_PRELOADERS
     /// </summary>
     /// <returns></returns>
-    protected abstract IEnumerator<ILoader> InitPreloaders();
+    protected IEnumerator<ILoader> InitPreloaders()
+    {
+        foreach (var component in _components) {
+            if (component.Value is ILoader loader) yield return loader;
+        }
+    }
 
     /// <summary>
     /// 正式进入游戏
