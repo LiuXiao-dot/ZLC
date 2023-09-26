@@ -30,7 +30,7 @@ namespace ZLCEditor.WindowSystem
                 isCodeDirty = false;
                 _windowViewDatas = GetWindowViewDatas(prefabGUIDs).ToArray();
                 using (var converter = new WindowView_Code_Converter()) {
-                    var windowIDSO = AssetDatabase.LoadAssetAtPath<ILEnum>("Assets/XW/EditorResources/Code/WindowID.asset");
+                    var windowIDSO = AssetDatabase.LoadAssetAtPath<ILEnum>("Assets/Plugins/ZLCEngine/EditorConfigs/WindowID.asset");
                     windowIDSO.kvs.Clear();
                     converter.Convert(_windowViewDatas);
                     AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);

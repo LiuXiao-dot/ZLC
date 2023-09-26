@@ -11,11 +11,11 @@ namespace ZLC.WindowSystem
         /// </summary>
         MAIN = 0,
         /// <summary>
-        /// 二级：子窗口
+        /// 二级：全屏窗口
         /// </summary>
         CHILD = 1,
         /// <summary>
-        /// 三级：面板 ->面板的子集为面板和弹窗
+        /// 三级：非全屏面板 ->面板的子集为面板和弹窗
         /// </summary>
         PANEL = 2,
         /// <summary>

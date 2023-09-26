@@ -21,11 +21,11 @@ namespace ZLC.ResourceSystem
         /// <summary>
         /// 资源缓存
         /// </summary>
-        private ResCache _cache;
+        private ResCache _cache = new ResCache();
         /// <summary>
         /// 监听Load
         /// </summary>
-        private List<ILoadListener> _listeners;
+        private List<ILoadListener> _listeners = new List<ILoadListener>(2);
         /// <summary>
         /// 是否启用了Record(同步加载不记录)
         /// </summary>
@@ -49,9 +49,6 @@ namespace ZLC.ResourceSystem
         /// <inheritdoc />
         public void Init()
         {
-            // 初始化cache
-            _cache = new ResCache();
-            _listeners = new List<ILoadListener>(2);
         }
         /// <inheritdoc />
         public void Load(Action<int, int> onProgress)

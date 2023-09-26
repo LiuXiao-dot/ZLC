@@ -1,6 +1,7 @@
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
+using ZLC.SerializeSystem;
 using ZLC.WindowSystem;
 using ZLCEditor.Converter;
 using ZLCEditor.Converter.Data;
@@ -14,7 +15,7 @@ namespace ZLCEditor.WindowSystem
     /// </summary>
     public class WindowView_Code_Converter : IDisposable
     {
-        private const string namespaceName = "XWEngine.UGUI";
+        private const string namespaceName = "ZLC.WindowSystem";
 
         public void Convert(IList<WindowViewData> viewDatas)
         {
@@ -37,14 +38,14 @@ namespace ZLCEditor.WindowSystem
             createMethod.AddStatement("\tdefault:");
             createMethod.AddStatement("\t\tthrow new ArgumentOutOfRangeException(nameof(id), id, null);");
             createMethod.AddStatement("}");
-            writer.Write(new Node_String_Converter().Convert(windowManager), "Assets/AutoScript/Window/WindowConfig.cs");
+            writer.Write(new Node_String_Converter().Convert(windowManager), $"{WindowToolSO.Instance.codeDirectory}/WindowConfig.cs");
         }
 
         public void Convert(WindowViewData viewData)
         {
             var factory = NodeFactory.instance ?? new NodeFactory();
             var writer = CodeFileWriter.instance ?? new CodeFileWriter();
-            var windowIDSO = AssetDatabase.LoadAssetAtPath<ILEnum>("Assets/XW/EditorResources/Code/WindowID.asset");
+            var windowIDSO = AssetDatabase.LoadAssetAtPath<ILEnum>("Assets/Plugins/ZLCEngine/EditorConfigs/WindowID.asset");
             var nodeStringConverter = new Node_String_Converter();
             var prefab = viewData.prefab;
             var kvs = WindowToolSO.Instance.KV;
@@ -159,15 +160,15 @@ namespace ZLCEditor.WindowSystem
                 var ks = components.Split('|');
                 foreach (var k in ks) {
                     if (kvs.TryGetValue(k, out var v)) {
-                        if (!usings.Contains(v.Namespace)) {
-                            usings.Add(v.Namespace);
+                        if (!usings.Contains(((Type)v).Namespace)) {
+                            usings.Add(((Type)v).Namespace);
                         }
                         var fieldBaseName = name.Replace(components, "");
                         viewClass.AddField(v, $"{fieldBaseName}_{k}");
                     }
                     if (kvs2.TryGetValue(k, out v)) {
-                        if (!usings.Contains(v.Namespace)) {
-                            usings.Add(v.Namespace);
+                        if (!usings.Contains(((Type)v).Namespace)) {
+                            usings.Add(((Type)v).Namespace);
                         }
                         var fieldBaseName = name.Replace(components, "");
                         viewClass.AddField(v, $"{fieldBaseName}_{k}");
@@ -265,13 +266,13 @@ namespace ZLCEditor.WindowSystem
                     var components = splits[0];
                     var ks = components.Split('|');
                     foreach (var k in ks) {
-                        if (kvs.TryGetValue(k, out Type _)) {
+                        if (kvs.TryGetValue(k, out SType _)) {
                             var fieldBaseName = name.Replace(components, "");
                             var fieldName = $"{fieldBaseName}_{k}";
                             var fieldInfo = componentType.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);
                             if (fieldInfo != null) fieldInfo.SetValue(view, childGo.GetComponent(fieldInfo.FieldType));
                         }
-                        if (kv2s.TryGetValue(k, out Type? _)) {
+                        if (kv2s.TryGetValue(k, out SType? _)) {
                             var fieldBaseName = name.Replace(components, "");
                             var fieldName = $"{fieldBaseName}_{k}";
                             var fieldInfo = componentType.GetField(fieldName, BindingFlags.Public | BindingFlags.Instance);

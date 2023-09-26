@@ -20,11 +20,13 @@ public class STypeDrawer : PropertyDrawer
         private string[] _types;
         private SerializedProperty fullNameProp;
         private SerializedProperty prop;
+        private SerializedProperty tempNameProp;
 
-        public STypeSelect(AdvancedDropdownState state, SerializedProperty fullNameProp, SerializedProperty prop) : base(state)
+        public STypeSelect(AdvancedDropdownState state, SerializedProperty fullNameProp, SerializedProperty tempNameProp,SerializedProperty prop) : base(state)
         {
             this.fullNameProp = fullNameProp;
             this.prop = prop;
+            this.tempNameProp = tempNameProp;
             var maximumSize = GetType().GetProperty("maximumSize", BindingFlags.NonPublic | BindingFlags.Instance);
             maximumSize.SetValue(this, new Vector2(1080f, 450f));
             InitTypes();
@@ -44,6 +46,7 @@ public class STypeDrawer : PropertyDrawer
         {
             selected = item.name;
             fullNameProp.stringValue = selected;
+            tempNameProp.stringValue = Type.GetType(selected).Name;
             fullNameProp.serializedObject.ApplyModifiedProperties();
             var boxedValue = prop.GetType().GetProperty("boxedValue");
             boxedValue.SetValue(prop,new SType());
@@ -59,14 +62,14 @@ public class STypeDrawer : PropertyDrawer
                     var assembly = Assembly.Load(dll.name);
                     var types = assembly.GetTypes();
                     foreach (var type in types) {
-                        typeList.Add(type.FullName);
+                        typeList.Add(type.AssemblyQualifiedName);
                     }
                 }
                 foreach (var assemblyAsset in assemblies) {
                     var assembly = Assembly.Load(assemblyAsset.name);
                     var types = assembly.GetTypes();
                     foreach (var type in types) {
-                        typeList.Add(type.FullName);
+                        typeList.Add(type.AssemblyQualifiedName);
                     }
                 }
             }
@@ -101,6 +104,7 @@ public class STypeDrawer : PropertyDrawer
     //private SerializedProperty _fullName;
     private GUIContent value = new GUIContent("value");
     private SerializedProperty fullNameProp;
+    private SerializedProperty tempNameProp;
     private static string[] _types;
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -109,10 +113,12 @@ public class STypeDrawer : PropertyDrawer
         // 一个文本一个下拉箭头
         if (fullNameProp == null) {
             fullNameProp = property.FindPropertyRelative("fullName");
+            tempNameProp = property.FindPropertyRelative("tempName");
         }
-        value.text = fullNameProp.stringValue;
+        value.text = tempNameProp.stringValue;
+        value.tooltip = fullNameProp.stringValue;
         if (EditorGUILayout.DropdownButton(value, FocusType.Passive)) {
-            var dropdown = new STypeSelect(new AdvancedDropdownState(), fullNameProp, property);
+            var dropdown = new STypeSelect(new AdvancedDropdownState(), fullNameProp, tempNameProp, property);
             dropdown.Show(position);
         }
         EditorGUI.EndProperty();

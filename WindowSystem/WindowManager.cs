@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using XWEngine.UGUI;
 using ZLC.Application;
-using ZLC.Common;
 using ZLC.ConfigSystem;
 using ZLC.EventSystem;
 using ZLC.IOCSystem;
@@ -34,7 +33,7 @@ namespace ZLC.WindowSystem
 
         public void Init()
         {
-            var windowConfig = Assembly.Load("AutoGenerate").GetType("XWEngine.UGUI.WindowConfig");
+            var windowConfig = Assembly.Load("AutoGenerate").GetType("ZLC.WindowSystem.WindowConfig");
             _windowConfig = (IWindowConfig)Activator.CreateInstance(windowConfig);
             SceneMessageQueue.Instance.Subscribe(this, SceneMessage.OnSceneOpen);
         }

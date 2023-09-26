@@ -35,7 +35,7 @@ public class ProfileManager : IManager
         _defaultHandler = Debug.unityLogger.logHandler;
         switch (AppConfigSO.Instance.logMode) {
             case LogMode.None:
-                Debug.unityLogger.logHandler = null;
+                //Debug.unityLogger.logHandler = null;
                 break;
             case LogMode.Default:
                 break;

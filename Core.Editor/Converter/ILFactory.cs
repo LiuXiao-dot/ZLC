@@ -12,8 +12,9 @@ namespace ZLCEditor.Converter
         {
             // 反射获取全部转换器
             _converterDic = new Dictionary<FT, object>();
-            var assemblies = ConvertToolSO.Instance.assemblies;
-            var childTypes = EditorAssemblyHelper.GetEnumerableChildType(assemblies, typeof(IConverter<,>));
+            var childTypes = new List<Type>();
+            EditorHelper.GetAllChildType(childTypes, EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal,typeof(IConverter<,>));
+            
             foreach (var childType in childTypes) {
                 var instance = (IConverter)Activator.CreateInstance(childType);
                 _converterDic.Add(new FT(instance.GetF(), instance.GetT()),instance);

@@ -7,13 +7,13 @@ using FilePathAttribute = ZLC.FileSystem.FilePathAttribute;
 namespace ZLCEditor.Converter
 {
     [Tool("基础配置/转换器配置")]
-    [FilePath("ConvertToolSO.asset", FilePathAttribute.PathType.XW,true)]
+    [FilePath("ConvertToolSO.asset", FilePathAttribute.PathType.XWEditor,true)]
     public sealed class ConvertToolSO : SOSingleton<ConvertToolSO>
     {
         [PropertyTooltip("使用了转换器的程序集")]
         public AssemblyDefinitionAsset[] assemblies;
 
-        [Unity.Collections.ReadOnly] public string codeGenPath = "Assets/AutoScript";
+        [Unity.Collections.ReadOnly] public string codeGenPath = "Assets/Plugins/ZLCEngine/AutoScript";
 
         protected override void OnEnable()
         {
@@ -26,14 +26,14 @@ namespace ZLCEditor.Converter
 
         public void CheckAssemblyDefinition()
         {
-            var path = Path.Combine(Instance.codeGenPath, "AutoGenerate.asmdef");
+            var path = Path.Combine(Instance.codeGenPath, "ZLC.AutoGenerate.asmdef");
             if (File.Exists(path)) {
                 return;
             }
             // 创建AssemblyDefinitionAsset资源文件 
             var assemblyDefinitionJson = @"{
-            ""name"": ""AutoGenerate"",
-            ""rootNamespace"": ""AutoGenerate"",
+            ""name"": ""ZLC.AutoGenerate"",
+            ""rootNamespace"": ""ZLC.AutoGenerate"",
             ""references"": [
                 ""GUID:1aa8bc75fb05ac449974d81d0c61be61"",
                 ""GUID:067a053eaf2a3424e9a3ecec1946d5f4"",

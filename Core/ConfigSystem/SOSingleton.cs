@@ -33,8 +33,7 @@ public abstract class SOSingleton<T> : ScriptableObject where T : SOSingleton<T>
     protected virtual void OnEnable()
     {
         if (_instance != null && this != _instance) {
-            Debug.LogWarning($"存在多个单例SO的实例{typeof(T).FullName}");
-            return;
+            Debug.LogWarning($"存在多个单例SO的实例{typeof(T).FullName},单例会被最新的替换");
         }
 
         _instance = (T)this;

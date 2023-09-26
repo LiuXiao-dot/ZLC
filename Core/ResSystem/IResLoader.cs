@@ -8,7 +8,7 @@ namespace ZLC.ResSystem;
 /// 资源加载器
 /// </summary>
 /// <remarks>用于加载资源（可以包含下载）,包含资源的同步与异步加载方式，支持资源池以及加载进度监控</remarks>
-public interface IResLoader : IManager, ILoader
+public interface IResLoader : IManager
 {
     /// <summary>
     /// 开启记录功能，开启后，才会对资源加载进行记录，并在进行资源加载后调用listener的对应方法
@@ -41,6 +41,16 @@ public interface IResLoader : IManager, ILoader
     /// </summary>
     void AddFinished();
 
+    /// <summary>
+    /// 当加载进度发生变化时，调用onProgress方法.
+    /// </summary>
+    /// <param name="onProgress">
+    /// 加载进度发生变化
+    /// 参数1：已完成任务数量
+    /// 参数2：总任务数量
+    /// </param>
+    void Load(Action<int, int> onProgress = null);
+    
     /// <summary>
     /// 检测资源是否已加载
     /// </summary>

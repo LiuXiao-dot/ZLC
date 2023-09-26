@@ -9,5 +9,5 @@ public static class AssemblyConstant
     /// 用于存档的key值
     /// </summary>
     internal const string INPUT_KEY = "ZLC_INPUT";
-    internal const string INPUT_ACTION_ASSET_NAME = "InputActionAsset.asset";
+    internal const string INPUT_ACTION_ASSET_NAME = "InputActionAsset.inputactions";
 }

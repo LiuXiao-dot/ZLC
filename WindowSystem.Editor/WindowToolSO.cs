@@ -1,4 +1,3 @@
-using System.Net.Mime;
 using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -8,7 +7,6 @@ using ZLC.EditorSystem;
 using ZLC.FileSystem;
 using ZLC.SerializeSystem;
 using ZLC.WindowSystem.Attribute;
-using ZLCEditor.Tool;
 using FilePathAttribute = ZLC.FileSystem.FilePathAttribute;
 namespace ZLCEditor.WindowSystem
 {
@@ -24,12 +22,12 @@ namespace ZLCEditor.WindowSystem
         [Unity.Collections.ReadOnly] public string windowDirectory = "Assets/Arts/Windows";
         [LabelText("代码目录")]
         [FolderPath]
-        [Unity.Collections.ReadOnly] public string codeDirectory = "Assets/AutoScript/Window";
+        [Unity.Collections.ReadOnly] public string codeDirectory = "Assets/Plugins/ZLCEngine/AutoScript/Window";
 
         [LabelText("名称->组件")]
-        public SDictionary<string, Type> KV = new SDictionary<string, Type>();
+        public SDictionary<string, SType> KV = new SDictionary<string, SType>();
         [LabelText("名称->组件（忽略子组件）")]
-        public SDictionary<string, Type> KV2 = new SDictionary<string, Type>();
+        public SDictionary<string, SType> KV2 = new SDictionary<string, SType>();
 
         [FoldoutGroup("窗口->修改时间")]
         public SDictionary<string, long> modifyTimes = new SDictionary<string, long>();
@@ -47,7 +45,7 @@ namespace ZLCEditor.WindowSystem
 
         private void Reset()
         {
-            KV = new SDictionary<string, Type>
+            KV = new SDictionary<string, SType>
             {
                 {
                     "TF", typeof(Transform)
@@ -59,7 +57,7 @@ namespace ZLCEditor.WindowSystem
                     "TOG", typeof(Toggle)
                 },
                 {
-                    "IMG", typeof(MediaTypeNames.Image)
+                    "IMG", typeof(Image)
                 },
                 {
                     "IN", typeof(TMPro.TMP_InputField)
@@ -100,13 +98,13 @@ namespace ZLCEditor.WindowSystem
             return true;
         }
 
-        [Button("刷新代码与组件")]
+        [Sirenix.OdinInspector.Button(ButtonSizes.Medium,Name = "刷新代码与组件")]
         private void GenerateAll()
         {
             WindowPostProcessor.Instance.GenerateAll(this);
         }
 
-        [Button("清除无用界面(没有prefab了的)")]
+        [Sirenix.OdinInspector.Button("清除无用界面(没有prefab了的)")]
         private void Clear()
         {
             WindowPostProcessor.Instance.Clear(this);

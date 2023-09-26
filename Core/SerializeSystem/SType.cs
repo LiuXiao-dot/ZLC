@@ -4,8 +4,9 @@ namespace ZLC.SerializeSystem;
 /// 可序列化的Type,编辑器中展示为Type和所有继承自Type的类
 /// </summary>
 [Serializable]
-public class SType : IEquatable<SType>
+public class SType
 {
+    public string tempName;
     /// <summary>
     /// 类型的完整名称
     /// </summary>
@@ -25,7 +26,8 @@ public class SType : IEquatable<SType>
     /// <param name="type">实际类型</param>
     public SType(Type type)
     {
-        fullName = type.FullName;
+        tempName = type.Name;
+        fullName = type.AssemblyQualifiedName;
     }
 
     /// <summary>
@@ -46,23 +48,5 @@ public class SType : IEquatable<SType>
     public static implicit operator Type(SType type)
     {
         return Type.GetType(type.fullName);;
-    }
-
-    public bool Equals(SType other)
-    {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return fullName == other.fullName;
-    }
-    public override bool Equals(object obj)
-    {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((SType)obj);
-    }
-    public override int GetHashCode()
-    {
-        return (fullName != null ? fullName.GetHashCode() : 0);
     }
 }

@@ -10,7 +10,7 @@ public class UnityStylePreviewTool : EditorWindow
 {
 
     static List<GUIStyle> styles = null;
-    [MenuItem("Tools/XW通用工具//styles预览")]
+    [MenuItem("Tools/XW通用工具/styles预览")]
     public static void ShowWindow()
     {
         EditorWindow.GetWindow<UnityStylePreviewTool>("styles");
