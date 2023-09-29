@@ -1,6 +1,7 @@
 using System.Reflection;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using UnityEditor;
 using ZLC.ConfigSystem;
 using ZLCEditor.Attributes;
 namespace ZLCEditor.Tool.Config
@@ -17,6 +18,14 @@ namespace ZLCEditor.Tool.Config
         [Button]
         private void Generate()
         {
+           init();
+        }
+        
+        [InitializeOnLoadMethod]
+        private static void init()
+        {
+            SOSingletonEditor.Check(typeof(AssemblyForToolSO));
+            // 初始化全部单例
             var soTypes = new List<Type>(10);
             EditorHelper.GetAllChildType(soTypes,EditorHelper.AssemblyFilterType.Custom | EditorHelper.AssemblyFilterType.Internal,typeof(SOSingleton<>));
             foreach (Type temp in soTypes) {

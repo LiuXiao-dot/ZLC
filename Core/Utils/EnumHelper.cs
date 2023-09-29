@@ -4,7 +4,7 @@ namespace ZLC.Utils;
 /// <summary>
 /// 枚举类帮助类
 /// </summary>
-public sealed class EnumHelper
+public static class EnumHelper
 {
     /// <summary>
     /// 对与Flag型的枚举值，对每个值进行遍历

@@ -28,7 +28,7 @@ namespace ZLCEditor.WindowSystem
             {
                 factory.CreateParamterNode(typeof(int), "id")
             }, typeof(IWindowCtl));
-            createMethod.AddStatement("switch(id){");
+            createMethod.AddStatement("switch((WindowID)id){");
 
             foreach (var viewData in viewDatas) {
                 createMethod.AddStatement($"\tcase WindowID.{viewData.GetName()}:");
@@ -78,7 +78,7 @@ namespace ZLCEditor.WindowSystem
         public void SetView(AWindowView view)
         {{
             this._view = ({viewClass.className})view;
-            this._id = this._view.windowID;
+            this._id = (WindowID)this._view.windowID;
         }}
 
         public AWindowView GetView()
@@ -86,9 +86,9 @@ namespace ZLCEditor.WindowSystem
             return _view;
         }}
         
-        public WindowID GetWindowID()
+        public int GetWindowID()
         {{
-            return _id;
+            return (int)_id;
         }}");
             writer.Write(nodeStringConverter.Convert(autoCtl), viewData.GetCtlPath());
 
